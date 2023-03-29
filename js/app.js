@@ -11,7 +11,7 @@ function calculateAge() {
     let ageInMilliseconds = today - dob.getTime();
     let ageInYears = ageInMilliseconds / 31556952000; // 1000ms * 60s * 60m * 24h * 365.25d = 31556952000ms
 
-    // Check if ageInYears is NaN or less than 0 (if dob is in the future)
+    // Check if ageInYears is NaN or less than 0 (if dob is in the future ok)
     if (isNaN(ageInYears) || ageInYears < 0) {
         document.getElementById("result").innerHTML = "Invalid date. Please enter a date that is not in the future.";
         return;
