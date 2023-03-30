@@ -1,22 +1,25 @@
-function calculateAge() {
-    let dob = new Date(document.getElementById("dob").value);
-    let today = new Date();
-
-    // Check if dob is a valid date
-    if (isNaN(dob.getTime())) {
-        document.getElementById("result").innerHTML = "Invalid date format. Please enter a valid date in the format yyyy-mm-dd.";
-        return;
+const calculateAge = () => {
+    const dobInput = document.getElementById("dob");
+    const dob = new Date(dobInput.value);
+    const today = new Date();
+    
+    let ageYears = today.getFullYear() - dob.getFullYear();
+    let ageMonths = today.getMonth() - dob.getMonth();
+    let ageDays = today.getDate() - dob.getDate();
+    
+    if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
+      ageYears--;
+      ageMonths = (ageMonths + 12) % 12;
+      ageDays = (ageDays + 31) % 31;
+    } else {
+      ageMonths = ageMonths % 12;
+      ageDays = ageDays % 31;
     }
-
-    let ageInMilliseconds = today - dob.getTime();
-    let ageInYears = ageInMilliseconds / 31556952000; // 1000ms * 60s * 60m * 24h * 365.25d = 31556952000ms
-
-    // Check if ageInYears is NaN or less than 0 (if dob is in the future ok)
-    if (isNaN(ageInYears) || ageInYears < 0) {
-        document.getElementById("result").innerHTML = "Invalid date. Please enter a date that is not in the future.";
-        return;
-    }
-
-    let age = Math.floor(ageInYears);
-    document.getElementById("result").innerHTML = "Your age is " + age + " years.";
-}
+    
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `Your age is ${ageYears} years, ${ageMonths} months, and ${ageDays} days.`;
+  }
+  
+  const calculateBtn = document.getElementById("calculate-btn");
+  calculateBtn.addEventListener("click", calculateAge);
+  
