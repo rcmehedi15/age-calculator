@@ -1,8 +1,22 @@
 const calculateAge = () => {
     const dobInput = document.getElementById("dob");
-    const dob = new Date(dobInput.value);
-    const today = new Date();
+    const dobValue = dobInput.value;
     
+    // Check if the user entered a date
+    if (!dobValue) {
+      alert("Please enter your date of birth.");
+      return;
+    }
+    
+    // Check if the entered date is valid
+    const dob = new Date(dobValue);
+    if (isNaN(dob)) {
+      alert("Please enter a valid date of birth.");
+      return;
+    }
+    
+    // Calculate the age
+    const today = new Date();
     let ageYears = today.getFullYear() - dob.getFullYear();
     let ageMonths = today.getMonth() - dob.getMonth();
     let ageDays = today.getDate() - dob.getDate();
